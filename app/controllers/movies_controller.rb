@@ -13,7 +13,7 @@ class MoviesController < ApplicationController
          @movies = @movies.order(params[:sort_by] + " ASC")
      end
      if params[:ratings]
-         @movies = @movies.find("ratings IN ?", params[:ratings].keys)
+         @movies = @movies.where(:rating => params[:ratings].keys)
      else
          @movies = @movies.all
      end
