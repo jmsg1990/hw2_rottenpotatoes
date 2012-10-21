@@ -20,7 +20,7 @@ class MoviesController < ApplicationController
         @movies = @movies.all
     end
     flash.keep
-    redirect_to {:action => "index", :params => { :sort_by => session[:sort_by], :ratings => session[:ratings] } } unless [session[:ratings], session[:sort_by]] == [params[:ratings], params[:sort_by]]
+    redirect_to  movies_path({ :sort_by => session[:sort_by], :ratings => session[:ratings] }) unless [session[:ratings], session[:sort_by]] == [params[:ratings], params[:sort_by]]
   end
 
   def new
