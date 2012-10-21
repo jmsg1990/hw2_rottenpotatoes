@@ -1,6 +1,5 @@
 class Movie < ActiveRecord::Base
     def self.get_all_ratings
-        movies = Movie.group("movies.rating")
-        return movies.collect { |movie| movie.rating }
+        return self.select("rating").group("rating")
     end
 end
