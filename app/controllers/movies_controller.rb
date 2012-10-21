@@ -9,14 +9,18 @@ class MoviesController < ApplicationController
   def index
     @all_ratings = Movie.get_all_ratings
     @movies = Movie
-     if params[:sort_by]
-         @movies = @movies.order(params[:sort_by] + " ASC")
-     end
-     if params[:ratings]
-         @movies = @movies.where(:rating => params[:ratings].keys)
-     else
-         @movies = @movies.all
-     end
+    if params[:sort_by]
+        @movies = @movies.order(params[:sort_by] + " ASC")
+          session[:sort_by] = params[:sort_by]
+    end
+    if params[:ratings]
+        @movies = @movies.where(:rating => params[:ratings].keys)
+        session[:ratings] = params[:ratings]
+    else
+        @movies = @movies.all
+    end
+    flash.keep
+    redirect_to {:action => "index", :params => { :sort_by => session[:sort_by], :ratings => session[:ratings] } } unless [session[:ratings], session[:sort_by]] == [params[:ratings], params[:sort_by]]
   end
 
   def new
