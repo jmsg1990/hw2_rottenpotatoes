@@ -1,7 +1,7 @@
 -#  This file is app/views/movies/index.html.haml
 %h1 All Movies
 
-= form_tag movies_path(:sort_by => params[:sort_by]), :method => :get do
+= form_tag movies_path({ :sort_by => params[:sort_by] }), :method => :get do
   Include: 
   - @all_ratings.each do |rating|
     = rating
@@ -12,10 +12,10 @@
   %thead
     %tr
       %th{:class => params[:sort_by] == 'title' ? "hilite" : '' }
-        %a{:id => 'title_header', :href => movies_path({:sort_by => 'title'}) } Movie Title
+        %a{:id => 'title_header', :href => movies_path({:sort_by => 'title', :ratings => params[:ratings]}) } Movie Title
       %th Rating
       %th{:class => params[:sort_by] == 'release_date' ? "hilite" : '' }
-        %a{:id => 'release_date_header', :href => movies_path({:sort_by => 'release_date'}) } Release Date
+        %a{:id => 'release_date_header', :href => movies_path({:sort_by => 'release_date', :ratings => params[:ratings]}) } Release Date
       %th More Info
   %tbody
     - @movies.each do |movie|
